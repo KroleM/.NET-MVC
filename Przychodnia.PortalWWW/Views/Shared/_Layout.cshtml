@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Przychodnia.PortalWWW</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/lib/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="~/lib/materialize/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="~/lib/materialize/css/MojeStyle.css" type="text/css" />
+    <link rel="shortcut icon" href="~/lib/materialize/images/stethoscope.png" type="image/x-icon">
+    <link rel="icon" href="shortcut icon" href="~/lib/materialize/images/stethoscope.png" type="image/x-icon">
+</head>
+<body>
+    <nav class="cyan" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="@Url.Action("Index","Home")" class="brand-logo">MEDICA</a>
+            <ul class="right hide-on-med-and-down">
+                <li>@Html.ActionLink("Placówki","Facilities","Home")</li>
+                <li>@Html.ActionLink("Cennik","Pricelist","Home")</li>
+                <li>@Html.ActionLink("O nas","About","Home")</li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li>@Html.ActionLink("Placówki","Facilities","Home")</li>
+                <li>@Html.ActionLink("Cennik","Pricelist","Home")</li>
+                <li>@Html.ActionLink("O nas","About","Home")</li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="page-footer cyan">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Kontakt</h5>
+                    <p class="grey-text text-lighten-4">ul. Faworkowa 35</p>
+                    <p class="grey-text text-lighten-4">02-796 Warszawa</p>
+                    <p class="grey-text text-lighten-4">tel. +48 111 222 333</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Informacje</h5>
+                    <ul>
+                        <li>@Html.ActionLink("Prywatność","Privacy","Home", null, new { @class = "white-text hoverable" })</li>
+                        <li>@Html.ActionLink("Placówki","Facilities","Home", null, new { @class = "white-text hoverable" })</li>
+                        <li>@Html.ActionLink("O nas","About","Home", null, new { @class = "white-text hoverable" })</li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Przydatne linki</h5>
+                    <ul>
+                        <li><a class="white-text hoverable" href="#!">Link 1</a></li>
+                        <li><a class="white-text hoverable" href="#!">Link 2</a></li>
+                        <li><a class="white-text hoverable" href="#!">Link 3</a></li>
+                        <li><a class="white-text hoverable" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by Karol Marciniak &trade;
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="~/lib/materialize/js/materialize.js"></script>
+    <script src="~/lib/materialize/js/init.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
