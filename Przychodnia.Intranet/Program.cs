@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Intranet.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<PrzychodniaIntranetContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PrzychodniaIntranetContext") ?? throw new InvalidOperationException("Connection string 'PrzychodniaIntranetContext' not found.")));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
