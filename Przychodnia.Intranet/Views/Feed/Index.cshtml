@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Przychodnia.Intranet.Models.CMS.Feed>
+﻿@model IEnumerable<Przychodnia.Data.Data.CMS.Feed>
 
 @{
     ViewData["Title"] = "Index";
@@ -43,9 +43,16 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>*@
+                <form method="post">
+                    <button class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edytuj</button>
+                </form>
+                <form method="post">
+                    <button class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Szczegóły</button>
+                </form>
+                <form method="post">
+                    <button class="btn btn-primary" asp-action="Delete" asp-route-id="@item.Id">Usuń</button>
+                </form>
             </td>
         </tr>
 }

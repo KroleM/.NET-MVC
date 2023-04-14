@@ -21,8 +21,8 @@ namespace Przychodnia.Data.Data.Visits
         [Required(ErrorMessage = "Data urodzenia jest wymagana")]
         [Display(Name = "Data urodzenia")]
         [Column(TypeName ="date")]
-        public DateOnly BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         [Display(Name = "Wybierz zdjęcie")]
-        public string? PhotoURL { get; set; }
+        public string PhotoURL { get; set; }
     }
 }

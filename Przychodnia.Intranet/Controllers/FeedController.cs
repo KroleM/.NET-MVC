@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Przychodnia.Intranet.Data;
-using Przychodnia.Intranet.Models.CMS;
+using Przychodnia.Data.Data;
+using Przychodnia.Data.Data.CMS;
 
 namespace Przychodnia.Intranet.Controllers
 {
     public class FeedController : Controller
     {
-        private readonly PrzychodniaIntranetContext _context;
+        private readonly PrzychodniaContext _context;
 
-        public FeedController(PrzychodniaIntranetContext context)
+        public FeedController(PrzychodniaContext context)
         {
             _context = context;
         }
