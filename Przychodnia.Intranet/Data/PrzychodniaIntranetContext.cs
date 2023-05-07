@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Intranet.Models.CMS;
+using Przychodnia.Intranet.Models.Visits;
 
 namespace Przychodnia.Intranet.Data
 {
@@ -17,5 +18,9 @@ namespace Przychodnia.Intranet.Data
         public DbSet<Przychodnia.Intranet.Models.CMS.Feed> Feed { get; set; } = default!;
 
         public DbSet<Przychodnia.Intranet.Models.CMS.Page>? Page { get; set; }
+        public DbSet<Przychodnia.Intranet.Models.CMS.Service>? Service { get; set; }
+        public DbSet<Przychodnia.Intranet.Models.Visits.Doctor>? Doctor { get; set; }
+        public DbSet<Przychodnia.Intranet.Models.Visits.Specialization>? Specialization { get; set; }
+
     }
 }
