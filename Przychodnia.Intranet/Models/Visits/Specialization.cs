@@ -12,6 +12,6 @@ namespace Przychodnia.Intranet.Models.Visits
 		[Display(Name = "Nazwa specjalizacji")]
 		public string Name { get; set; }
 
-		public List<Doctor> Doctors { get; set; }
+		public List<Doctor>? Doctors { get; set; }
 	}
 }

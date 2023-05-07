@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Przychodnia.Intranet.Data;
 
@@ -11,9 +12,10 @@ using Przychodnia.Intranet.Data;
 namespace Przychodnia.Intranet.Migrations
 {
     [DbContext(typeof(PrzychodniaIntranetContext))]
-    partial class PrzychodniaIntranetContextModelSnapshot : ModelSnapshot
+    [Migration("20230507074931_Visits")]
+    partial class Visits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
