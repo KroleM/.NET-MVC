@@ -15,21 +15,7 @@
 </head>
 <body>
     <nav class="cyan" role="navigation">
-        <div class="nav-wrapper container">
-            <a id="logo-container" href="@Url.Action("Index","Home")" class="brand-logo">MEDICA</a>
-            <ul class="right hide-on-med-and-down">
-                <li>@Html.ActionLink("Placówki","Facilities","Home")</li>
-                <li>@Html.ActionLink("Cennik","Pricelist","Home")</li>
-                <li>@Html.ActionLink("O nas","About","Home")</li>
-            </ul>
-
-            <ul id="nav-mobile" class="sidenav">
-                <li>@Html.ActionLink("Placówki","Facilities","Home")</li>
-                <li>@Html.ActionLink("Cennik","Pricelist","Home")</li>
-                <li>@Html.ActionLink("O nas","About","Home")</li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        </div>
+        @await Html.PartialAsync("Links", (IEnumerable<Przychodnia.Data.Data.CMS.Page>) ViewBag.PageModel)
     </nav>
 
     <div class="container">
@@ -49,11 +35,12 @@
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Informacje</h5>
-                    <ul>
+@*                    <ul>
                         <li>@Html.ActionLink("Prywatność","Privacy","Home", null, new { @class = "white-text hoverable" })</li>
                         <li>@Html.ActionLink("Placówki","Facilities","Home", null, new { @class = "white-text hoverable" })</li>
                         <li>@Html.ActionLink("O nas","About","Home", null, new { @class = "white-text hoverable" })</li>
-                    </ul>
+                    </ul>*@
+                    @await Html.PartialAsync("BottomLinks", (IEnumerable<Przychodnia.Data.Data.CMS.Page>) ViewBag.PageModel)
                 </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">Przydatne linki</h5>

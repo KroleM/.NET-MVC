@@ -1,8 +1,15 @@
-﻿@{
+﻿@*@{
     ViewData["Title"] = "Strona domowa";
+}*@
+
+@model Przychodnia.Data.Data.CMS.Page
+
+@{
+    ViewData["Title"] = @Model.LinkTitle;
 }
 
-
+@if (Model.Id == 1)
+{
 <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
         <div class="container">
@@ -109,3 +116,25 @@
     </div>
     <div class="parallax"><img src="~/lib/materialize/images/pills.jpg"></div>
 </div>
+}
+else
+{
+    <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="row center">
+                    <h3 class="header col s12 white-text z-depth-4">@Model.Title</h3>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img src="~/lib/materialize/images/stetoscope.jpg"></div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <p class="flow-text">@Model.Content</p>
+            </div>
+        </div>
+    </div>
+}

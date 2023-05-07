@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Przychodnia.Data.Data.CMS.Page>
+
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.ActionLink(item.LinkTitle,"Index","Home", new {id=item.Id}, new { @class = "white-text hoverable" })
+        </li>
+    }
+</ul>

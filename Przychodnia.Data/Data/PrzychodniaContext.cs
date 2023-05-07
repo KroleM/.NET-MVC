@@ -18,5 +18,6 @@ namespace Przychodnia.Data.Data
         public DbSet<Page> Page { get; set; }
         public DbSet<Specialization> Specialization { get; set; }
         public DbSet<Doctor> Doctor { get; set; }
+        public DbSet<Service> Service { get; set; }
     }
 }

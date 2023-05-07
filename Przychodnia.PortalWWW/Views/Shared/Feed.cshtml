@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Przychodnia.Data.Data.CMS.Feed>
+
+@foreach (var item in Model)
+{
+
+    <div class="col s12 m4">
+        <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">check</i></h2>
+
+            <h5 class="center">@Html.ActionLink(item.LinkTitle,"Index","Home", new {id=item.Id}, null)</h5>
+
+            <p class="light">@Html.ActionLink(item.Content,"Index","Home", new {id=item.Id}, null)</p>
+        </div>
+   </div>
+}
