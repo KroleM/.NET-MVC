@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Przychodnia.PortalWWW", "Przychodnia.PortalWWW\Przychodnia.PortalWWW.csproj", "{AF4B74B7-9064-4A26-8008-84D3E457DC85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Przychodnia.PortalWWW", "Przychodnia.PortalWWW\Przychodnia.PortalWWW.csproj", "{AF4B74B7-9064-4A26-8008-84D3E457DC85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Przychodnia.Intranet", "Przychodnia.Intranet\Przychodnia.Intranet.csproj", "{B94EAAF3-CB23-4777-8ACD-3D32305DAE6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Przychodnia.Intranet", "Przychodnia.Intranet\Przychodnia.Intranet.csproj", "{B94EAAF3-CB23-4777-8ACD-3D32305DAE6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Przychodnia.Database", "Przychodnia.Database\Przychodnia.Database.csproj", "{9C0CE0AD-5D45-4521-8DB3-72EFAE5B1927}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B94EAAF3-CB23-4777-8ACD-3D32305DAE6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B94EAAF3-CB23-4777-8ACD-3D32305DAE6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B94EAAF3-CB23-4777-8ACD-3D32305DAE6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0CE0AD-5D45-4521-8DB3-72EFAE5B1927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0CE0AD-5D45-4521-8DB3-72EFAE5B1927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0CE0AD-5D45-4521-8DB3-72EFAE5B1927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0CE0AD-5D45-4521-8DB3-72EFAE5B1927}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
