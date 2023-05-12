@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Przychodnia.Intranet.Data;
-using Przychodnia.Intranet.Models.Visits;
+using Przychodnia.Database.Data;
+using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Intranet.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly PrzychodniaIntranetContext _context;
+        private readonly PrzychodniaContext _context;
 
-        public DoctorController(PrzychodniaIntranetContext context)
+        public DoctorController(PrzychodniaContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace Przychodnia.Intranet.Controllers
         // GET: Doctor
         public async Task<IActionResult> Index()
         {
-            var przychodniaIntranetContext = _context.Doctor.Include(d => d.Specialization);
-            return View(await przychodniaIntranetContext.ToListAsync());
+            var przychodniaContext = _context.Doctor.Include(d => d.Specialization);
+            return View(await przychodniaContext.ToListAsync());
         }
 
         // GET: Doctor/Details/5
@@ -148,7 +148,7 @@ namespace Przychodnia.Intranet.Controllers
         {
             if (_context.Doctor == null)
             {
-                return Problem("Entity set 'PrzychodniaIntranetContext.Doctor'  is null.");
+                return Problem("Entity set 'PrzychodniaContext.Doctor'  is null.");
             }
             var doctor = await _context.Doctor.FindAsync(id);
             if (doctor != null)

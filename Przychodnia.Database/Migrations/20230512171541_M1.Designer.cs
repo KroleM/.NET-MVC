@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Przychodnia.Intranet.Data;
+using Przychodnia.Database.Data;
 
 #nullable disable
 
-namespace Przychodnia.Intranet.Migrations
+namespace Przychodnia.Database.Migrations
 {
-    [DbContext(typeof(PrzychodniaIntranetContext))]
-    partial class PrzychodniaIntranetContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PrzychodniaContext))]
+    [Migration("20230512171541_M1")]
+    partial class M1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace Przychodnia.Intranet.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.CMS.Feed", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.CMS.Feed", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +54,7 @@ namespace Przychodnia.Intranet.Migrations
                     b.ToTable("Feed");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.CMS.Page", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.CMS.Page", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +84,7 @@ namespace Przychodnia.Intranet.Migrations
                     b.ToTable("Page");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.CMS.Service", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.CMS.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +114,7 @@ namespace Przychodnia.Intranet.Migrations
                     b.ToTable("Service");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.Visits.Doctor", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.Visits.Doctor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +150,7 @@ namespace Przychodnia.Intranet.Migrations
                     b.ToTable("Doctor");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.Visits.Specialization", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.Visits.Specialization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,9 +168,9 @@ namespace Przychodnia.Intranet.Migrations
                     b.ToTable("Specialization");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.Visits.Doctor", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.Visits.Doctor", b =>
                 {
-                    b.HasOne("Przychodnia.Intranet.Models.Visits.Specialization", "Specialization")
+                    b.HasOne("Przychodnia.Database.Data.Visits.Specialization", "Specialization")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecializationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -177,7 +179,7 @@ namespace Przychodnia.Intranet.Migrations
                     b.Navigation("Specialization");
                 });
 
-            modelBuilder.Entity("Przychodnia.Intranet.Models.Visits.Specialization", b =>
+            modelBuilder.Entity("Przychodnia.Database.Data.Visits.Specialization", b =>
                 {
                     b.Navigation("Doctors");
                 });

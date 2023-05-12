@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Przychodnia.Intranet.Data;
-using Przychodnia.Intranet.Models.Visits;
+using Przychodnia.Database.Data;
+using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Intranet.Controllers
 {
     public class SpecializationController : Controller
     {
-        private readonly PrzychodniaIntranetContext _context;
+        private readonly PrzychodniaContext _context;
 
-        public SpecializationController(PrzychodniaIntranetContext context)
+        public SpecializationController(PrzychodniaContext context)
         {
             _context = context;
         }
@@ -24,7 +19,7 @@ namespace Przychodnia.Intranet.Controllers
         {
               return _context.Specialization != null ? 
                           View(await _context.Specialization.ToListAsync()) :
-                          Problem("Entity set 'PrzychodniaIntranetContext.Specialization'  is null.");
+                          Problem("Entity set 'PrzychodniaContext.Specialization'  is null.");
         }
 
         // GET: Specialization/Details/5
@@ -143,7 +138,7 @@ namespace Przychodnia.Intranet.Controllers
         {
             if (_context.Specialization == null)
             {
-                return Problem("Entity set 'PrzychodniaIntranetContext.Specialization'  is null.");
+                return Problem("Entity set 'PrzychodniaContext.Specialization'  is null.");
             }
             var specialization = await _context.Specialization.FindAsync(id);
             if (specialization != null)

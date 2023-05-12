@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Przychodnia.Intranet.Data;
-using Przychodnia.Intranet.Models.CMS;
+using Przychodnia.Database.Data;
+using Przychodnia.Database.Data.CMS;
 
 namespace Przychodnia.Intranet.Controllers
 {
     public class ServiceController : Controller
     {
-        private readonly PrzychodniaIntranetContext _context;
+        private readonly PrzychodniaContext _context;
 
-        public ServiceController(PrzychodniaIntranetContext context)
+        public ServiceController(PrzychodniaContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace Przychodnia.Intranet.Controllers
         {
               return _context.Service != null ? 
                           View(await _context.Service.ToListAsync()) :
-                          Problem("Entity set 'PrzychodniaIntranetContext.Service'  is null.");
+                          Problem("Entity set 'PrzychodniaContext.Service'  is null.");
         }
 
         // GET: Service/Details/5
@@ -143,7 +143,7 @@ namespace Przychodnia.Intranet.Controllers
         {
             if (_context.Service == null)
             {
-                return Problem("Entity set 'PrzychodniaIntranetContext.Service'  is null.");
+                return Problem("Entity set 'PrzychodniaContext.Service'  is null.");
             }
             var service = await _context.Service.FindAsync(id);
             if (service != null)

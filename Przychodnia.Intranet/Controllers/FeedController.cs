@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Przychodnia.Intranet.Data;
-using Przychodnia.Intranet.Models.CMS;
+using Przychodnia.Database.Data;
+using Przychodnia.Database.Data.CMS;
 
 namespace Przychodnia.Intranet.Controllers
 {
     public class FeedController : Controller
     {
-        private readonly PrzychodniaIntranetContext _context;
+        private readonly PrzychodniaContext _context;
 
-        public FeedController(PrzychodniaIntranetContext context)
+        public FeedController(PrzychodniaContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace Przychodnia.Intranet.Controllers
         {
               return _context.Feed != null ? 
                           View(await _context.Feed.ToListAsync()) :
-                          Problem("Entity set 'PrzychodniaIntranetContext.Feed'  is null.");
+                          Problem("Entity set 'PrzychodniaContext.Feed'  is null.");
         }
 
         // GET: Feed/Details/5
@@ -143,7 +143,7 @@ namespace Przychodnia.Intranet.Controllers
         {
             if (_context.Feed == null)
             {
-                return Problem("Entity set 'PrzychodniaIntranetContext.Feed'  is null.");
+                return Problem("Entity set 'PrzychodniaContext.Feed'  is null.");
             }
             var feed = await _context.Feed.FindAsync(id);
             if (feed != null)
