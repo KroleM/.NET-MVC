@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +17,7 @@ builder.Services.AddControllersWithViews();
 
 //DODANE
 builder.Services.AddRazorPages();
+// czy potrzebne??
 
 var app = builder.Build();
 

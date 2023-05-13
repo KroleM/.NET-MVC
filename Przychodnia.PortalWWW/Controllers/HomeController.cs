@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Przychodnia.Database.Data;
 using Przychodnia.PortalWWW.Models;
 using System.Diagnostics;
 
@@ -7,15 +9,29 @@ namespace Przychodnia.PortalWWW.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly PrzychodniaContext context_;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(PrzychodniaContext context)
         {
-            _logger = logger;
+            context_ = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            return View();
+            ViewBag.PageModel =
+            (
+                    from page in context_.Page
+                    orderby page.Priority
+                    select page
+                ).ToList();
+            
+            if (id == null)
+            {
+                id = context_.Page.First().Id;
+            }
+            var item = context_.Page.Find(id);
+
+            return View(item);
         }
         public IActionResult Privacy()
         {

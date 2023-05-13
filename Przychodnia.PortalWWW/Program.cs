@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Przychodnia.Database.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<PrzychodniaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PrzychodniaContext") ?? throw new InvalidOperationException("Connection string 'PrzychodniaContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

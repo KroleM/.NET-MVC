@@ -15,7 +15,8 @@
 </head>
 <body>
     <nav class="cyan" role="navigation">
-        <div class="nav-wrapper container">
+        @await Html.PartialAsync("TopLinks", (IEnumerable<Przychodnia.Database.Data.CMS.Page>) ViewBag.PageModel)
+@*        <div class="nav-wrapper container">
             <a id="logo-container" href="@Url.Action("Index","Home")" class="brand-logo">MEDICA</a>
             <ul class="right hide-on-med-and-down">
                 <li>@Html.ActionLink("Placówki","Facilities","Home")</li>
@@ -29,7 +30,7 @@
                 <li>@Html.ActionLink("O nas","About","Home")</li>
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        </div>
+        </div>*@
     </nav>
 
     <div class="container">
