@@ -27,11 +27,22 @@ namespace Przychodnia.PortalWWW.Controllers
             
             if (id == null)
             {
-                id = context_.Page.First().Id;
+                return View("MainPage");
+                //id = context_.Page.First().Id;
             }
             var item = context_.Page.Find(id);
 
             return View(item);
+        }
+        public IActionResult MainPage()
+        {
+            ViewBag.PageModel =
+            (
+                from page in context_.Page
+                orderby page.Priority
+                select page
+            ).ToList();
+            return View();
         }
         public IActionResult Privacy()
         {
