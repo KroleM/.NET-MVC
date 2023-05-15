@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Przychodnia.Database.Data.Visits.Doctor>
+
+@{
+    ViewData["Title"] = "Rezerwacje";
+    Layout = "~/Views/Shared/_ReservationLayout.cshtml";
+}
+
+<div>
+	<div class="row">
+		@foreach (var doctor in Model)
+		{
+			<div class="col s12 m3">
+				<div class="card">
+					<div class="card-image">
+						<img src="~/lib/materialize/images/doctors.jpg">
+						@*<span class="card-title">@Html.ActionLink(towar.Nazwa, "Szczegoly", "Sklep", new {id=towar.IdTowaru},null)</span>*@
+					</div>
+					<div class="card-content">
+						<span class="card-title">@Html.ActionLink(doctor.Name, "Details", "Reservation", new {id=doctor.Id},null)</span>
+					</div>
+					<div class="card-content">
+						<p>@doctor.Specialization.Name</p>
+					</div>
+					<div class="card-content">
+						<p>Cena wizyty: xxx</p>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
