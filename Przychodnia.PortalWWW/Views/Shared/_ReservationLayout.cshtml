@@ -12,7 +12,8 @@
 </head>
 <body>
     <nav class="cyan" role="navigation">
-        @await Html.PartialAsync("SpecializationsMenu", (IEnumerable<Przychodnia.Database.Data.Visits.Specialization>) ViewBag.Specializations)
+        @await Component.InvokeAsync("SpecializationsMenuComponent")
+        @*@await Html.PartialAsync("SpecializationsMenu", (IEnumerable<Przychodnia.Database.Data.Visits.Specialization>) ViewBag.Specializations)*@
     </nav>
 
     <div class="container">

@@ -4,16 +4,32 @@
     Layout = "~/Views/Shared/_ReservationLayout.cshtml";
 }
 
-<div>
-    Foto
-</div>
-<div>
-    @Model.Name
-</div>
-<div>
-    @Model.Specialization
-</div>
-<div>
-    @Model.LicenceNumber
+<div class="container">
+    <div class="section">
+
+        <div class="table">
+            <table>
+                <tr>
+                    <td><b>Foto</b></td>
+                    <td>@Model.PhotoURL</td>
+                </tr>
+                <tr>
+                    <td><b>Imię i nazwisko</b></td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td><b>Specjalizacja</b></td>
+                    <td>@Model.Specialization.Name</td>
+                </tr>
+                <tr>
+                    <td><b>Numer licencji</b></td>
+                    <td>@Model.LicenceNumber</td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="left-align light">Uczniowie i studenci otrzymają zniżkę 20% po okazaniu ważnej legitymacji.</p>
+
+    </div>
 </div>
 
