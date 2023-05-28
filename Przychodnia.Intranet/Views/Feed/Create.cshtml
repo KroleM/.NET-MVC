@@ -1,12 +1,12 @@
 ﻿@model Przychodnia.Database.Data.CMS.Feed
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nowa Aktualność";
 }
 
-<h1>Create</h1>
+<h1>Tworzenie</h1>
 
-<h4>Feed</h4>
+<h4>Aktualność</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,14 +33,16 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Utwórz" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <form method="post">
+        <button class="btn btn-secondary" asp-action="Index">Powrót do listy</button>
+    </form>
 </div>
 
 @section Scripts {

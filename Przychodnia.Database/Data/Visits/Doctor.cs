@@ -8,8 +8,8 @@ namespace Przychodnia.Database.Data.Visits
 		[Required(ErrorMessage = "Numer licencji jest wymagany")]
 		[Display(Name = "Numer licencji")]
 		public string LicenceNumber { get; set; }
-
-		public int SpecializationId { get; set; }
+        [Display(Name = "Specjlizacja2")]
+        public int SpecializationId { get; set; }
 		public Specialization Specialization { get; set; }
 	}
 }
