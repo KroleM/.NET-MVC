@@ -4,37 +4,45 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Intranet.Controllers
 {
-    public class DoctorController : Controller
+    public class DoctorController : BaseController<Doctor>
     {
-        private readonly PrzychodniaContext _context;
-
         public DoctorController(PrzychodniaContext context)
+            : base(context)
         {
-            _context = context;
+        }
+        public override async Task<List<Doctor>> GetEntityList()
+        {
+            //z bazy danych pobieramy asynchronicznie listę wszystkich lekarzy
+            //Include(...) ładuje klucz obcy - może być ich wiele
+            return await Context.Doctor.Include(d => d.Specialization).ToListAsync();
+            //tutaj tak naprawdę powinno być zapytanie LinQ, które wyświetli tylko te kolumny, które nas interesują
+        }
+        public override async Task SetSelectList()
+        {
+            var specs = await Context.Specialization.ToListAsync();
+            ViewBag.Specializations = new SelectList(specs, "Id", "Name");
+            //ViewData["Specializations"] = new SelectList(specs, "Id", "Name");    // <-- wersja alternatywna
         }
 
-        // GET: Doctor
-        public async Task<IActionResult> Index()
-        {
-            var przychodniaContext = _context.Doctor.Include(d => d.Specialization);
-            return View(await przychodniaContext.ToListAsync());
-        }
 
+
+        // ===============================================================
         // GET: Doctor/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Doctor == null)
+            if (id == null || Context.Doctor == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctor
+            var doctor = await Context.Doctor
                 .Include(d => d.Specialization)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (doctor == null)
@@ -45,44 +53,20 @@ namespace Przychodnia.Intranet.Controllers
             return View(doctor);
         }
 
-        // GET: Doctor/Create
-        public IActionResult Create()
-        {
-            ViewData["SpecializationId"] = new SelectList(_context.Specialization, "Id", "Name");
-            return View();
-        }
-
-        // POST: Doctor/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LicenceNumber,SpecializationId,Id,Name,Address,BirthDate,PhotoURL")] Doctor doctor)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(doctor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["SpecializationId"] = new SelectList(_context.Specialization, "Id", "Name", doctor.SpecializationId);
-            return View(doctor);
-        }
-
         // GET: Doctor/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Doctor == null)
+            if (id == null || Context.Doctor == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctor.FindAsync(id);
+            var doctor = await Context.Doctor.FindAsync(id);
             if (doctor == null)
             {
                 return NotFound();
             }
-            ViewData["SpecializationId"] = new SelectList(_context.Specialization, "Id", "Name", doctor.SpecializationId);
+            ViewData["SpecializationId"] = new SelectList(Context.Specialization, "Id", "Name", doctor.SpecializationId);
             return View(doctor);
         }
 
@@ -102,8 +86,8 @@ namespace Przychodnia.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(doctor);
-                    await _context.SaveChangesAsync();
+                    Context.Update(doctor);
+                    await Context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,19 +102,19 @@ namespace Przychodnia.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpecializationId"] = new SelectList(_context.Specialization, "Id", "Name", doctor.SpecializationId);
+            ViewData["SpecializationId"] = new SelectList(Context.Specialization, "Id", "Name", doctor.SpecializationId);
             return View(doctor);
         }
 
         // GET: Doctor/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Doctor == null)
+            if (id == null || Context.Doctor == null)
             {
                 return NotFound();
             }
 
-            var doctor = await _context.Doctor
+            var doctor = await Context.Doctor
                 .Include(d => d.Specialization)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (doctor == null)
@@ -146,23 +130,43 @@ namespace Przychodnia.Intranet.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Doctor == null)
+            if (Context.Doctor == null)
             {
                 return Problem("Entity set 'PrzychodniaContext.Doctor'  is null.");
             }
-            var doctor = await _context.Doctor.FindAsync(id);
+            var doctor = await Context.Doctor.FindAsync(id);
             if (doctor != null)
             {
-                _context.Doctor.Remove(doctor);
+                Context.Doctor.Remove(doctor);
             }
             
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DoctorExists(int id)
         {
-          return (_context.Doctor?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (Context.Doctor?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        // Metoda wygenerowana - zastąpiona przez Create z BaseController
+        // POST: Doctor/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /*
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("LicenceNumber,SpecializationId,Id,Name,Address,BirthDate,PhotoURL")] Doctor doctor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(doctor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpecializationId"] = new SelectList(_context.Specialization, "Id", "Name", doctor.SpecializationId);
+            return View(doctor);
+        }
+        */
     }
 }

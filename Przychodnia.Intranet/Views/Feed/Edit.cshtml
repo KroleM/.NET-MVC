@@ -1,7 +1,7 @@
 ﻿@model Przychodnia.Database.Data.CMS.Feed
 
 @{
-    ViewData["Title"] = "Edycja aktualności";
+    ViewData["Title"] = "Edycja";
 }
 
 <h1>Edycja</h1>
@@ -41,9 +41,7 @@
 </div>
 
 <div>
-    <form method="post">
-        <button class="btn btn-secondary" asp-action="Index">Powrót do listy</button>
-    </form>
+    <a class="btn btn-secondary" asp-action="Index">Powrót</a>
 </div>
 
 @section Scripts {

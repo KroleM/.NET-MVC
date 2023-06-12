@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Przychodnia.Database.Data.Visits
 {
-	public class Person
+	public class Person : TEntity
 	{
 		[Key]
 		public int Id { get; set; }

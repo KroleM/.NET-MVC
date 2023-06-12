@@ -1,12 +1,12 @@
 ﻿@model Przychodnia.Database.Data.CMS.Page
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nowa Strona";
 }
 
-<h1>Create</h1>
+<h1>Tworzenie</h1>
 
-<h4>Page</h4>
+<h4>Strona</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,14 +33,14 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Utwórz" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary" asp-action="Index">Powrót do listy</a>
 </div>
 
 @section Scripts {
