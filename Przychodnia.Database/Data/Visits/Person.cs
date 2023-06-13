@@ -18,6 +18,7 @@ namespace Przychodnia.Database.Data.Visits
 		[Required(ErrorMessage = "Data urodzenia jest wymagana")]
 		[Display(Name = "Data urodzenia")]
 		[Column(TypeName = "date")]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime BirthDate { get; set; }
 		[Display(Name = "Wybierz zdjęcie")]
 		public string? PhotoURL { get; set; }

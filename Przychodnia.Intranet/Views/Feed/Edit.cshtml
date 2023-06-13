@@ -14,11 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="LinkTitle" class="control-label"></label>
-                <input asp-for="LinkTitle" class="form-control" />
-                <span asp-validation-for="LinkTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
@@ -33,6 +28,12 @@
                 <input asp-for="Priority" class="form-control" />
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="IconId" class="control-label">Ikona</label>
+                <select asp-for="IconId" class="form-control" asp-items="ViewBag.Icons"></select>
+                <span asp-validation-for="IconId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <input type="submit" value="Zapisz" class="btn btn-primary" />
             </div>

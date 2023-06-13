@@ -16,6 +16,7 @@ namespace Przychodnia.Database.Data
         public DbSet<Service>? Service { get; set; }
         public DbSet<Doctor>? Doctor { get; set; }
         public DbSet<Specialization>? Specialization { get; set; }
+		public DbSet<Icon>? Icon { get; set; }
 
-    }
+	}
 }

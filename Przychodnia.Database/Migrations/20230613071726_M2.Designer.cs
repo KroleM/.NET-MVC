@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Przychodnia.Database.Data;
 
@@ -11,9 +12,10 @@ using Przychodnia.Database.Data;
 namespace Przychodnia.Database.Migrations
 {
     [DbContext(typeof(PrzychodniaContext))]
-    partial class PrzychodniaContextModelSnapshot : ModelSnapshot
+    [Migration("20230613071726_M2")]
+    partial class M2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +188,7 @@ namespace Przychodnia.Database.Migrations
             modelBuilder.Entity("Przychodnia.Database.Data.CMS.Feed", b =>
                 {
                     b.HasOne("Przychodnia.Database.Data.CMS.Icon", "Icon")
-                        .WithMany("Feeds")
+                        .WithMany()
                         .HasForeignKey("IconId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -203,11 +205,6 @@ namespace Przychodnia.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Specialization");
-                });
-
-            modelBuilder.Entity("Przychodnia.Database.Data.CMS.Icon", b =>
-                {
-                    b.Navigation("Feeds");
                 });
 
             modelBuilder.Entity("Przychodnia.Database.Data.Visits.Specialization", b =>

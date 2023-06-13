@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Database.Data.CMS
 {
@@ -9,10 +10,6 @@ namespace Przychodnia.Database.Data.CMS
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Wpisz tytuł aktualności")]
-        [MaxLength(20, ErrorMessage = "Tytuł powinien zawierać max 20 znaków")]
-        [Display(Name = "Tytuł odnośnika")]
-        public string LinkTitle { get; set; }
         [Required(ErrorMessage = "Wpisz tytuł aktualności")]
         [MaxLength(30, ErrorMessage = "Tytuł aktualności powinien zawierać max 30 znaków")]
         [Display(Name = "Tytuł")]
@@ -23,6 +20,10 @@ namespace Przychodnia.Database.Data.CMS
         [Display(Name = "Pozycja wyświetlania")]
         [Required(ErrorMessage = "Wpisz pozycję wyświetlania")]
         public int Priority { get; set; }
+		//[Required(ErrorMessage = "Ikona musi zostać wybrana")]
+		[Display(Name = "Nazwa ikony")]
+		public int IconId { get; set; }
+		public Icon Icon { get; set; }
 
-    }
+	}
 }

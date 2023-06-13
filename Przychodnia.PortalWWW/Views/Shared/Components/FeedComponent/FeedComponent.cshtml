@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Przychodnia.Database.Data.CMS.Feed>
 
-@foreach (var item in Model)
+@foreach (var feed in Model)
 {
 	<div class="carousel-item col s12 m4">
 		<div class="icon-block">
-			<h2 class="center black-text"><i class="material-icons">check</i></h2>
-			<h5 class="center">@item.Title</h5>
-			<p class="center light">@item.Content</p>
+			<h2 class="center black-text"><i class="material-icons">@feed.Icon.Name</i></h2>
+			<h5 class="center">@feed.Title</h5>
+			<p class="center light">@feed.Content</p>
 		</div>
 	</div>
 }

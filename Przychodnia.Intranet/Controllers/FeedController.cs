@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.CMS;
+using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Intranet.Controllers
 {
@@ -22,8 +23,8 @@ namespace Przychodnia.Intranet.Controllers
         // GET: Feed
         public async Task<IActionResult> Index()
         {
-              return _context.Feed != null ? 
-                          View(await _context.Feed.ToListAsync()) :
+			return _context.Feed != null ? 
+                          View(await _context.Feed.Include(d => d.Icon).ToListAsync()) :
                           Problem("Entity set 'PrzychodniaContext.Feed'  is null.");
         }
 
@@ -46,9 +47,11 @@ namespace Przychodnia.Intranet.Controllers
         }
 
         // GET: Feed/Create
-        public IActionResult Create()
-        {
-            return View();
+        public async Task<IActionResult> Create()
+		{
+			var icons = await _context.Icon.ToListAsync();
+			ViewBag.Icons = new SelectList(icons, "Id", "Name");
+			return View();
         }
 
         // POST: Feed/Create
@@ -56,15 +59,16 @@ namespace Przychodnia.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,LinkTitle,Title,Content,Priority")] Feed feed)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,Priority,IconId")] Feed feed)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(feed);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(feed);
+            //}
+			//ViewData["IconId"] = new SelectList(_context.Icon, "Id", "Name", feed.IconId);
+			return View(feed);
         }
 
         // GET: Feed/Edit/5
@@ -80,7 +84,8 @@ namespace Przychodnia.Intranet.Controllers
             {
                 return NotFound();
             }
-            return View(feed);
+			ViewData["Icons"] = new SelectList(_context.Icon, "Id", "Name", feed.IconId);
+			return View(feed);
         }
 
         // POST: Feed/Edit/5
@@ -88,14 +93,14 @@ namespace Przychodnia.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LinkTitle,Title,Content,Priority")] Feed feed)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,Priority,IconId")] Feed feed)
         {
             if (id != feed.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
                 try
                 {
@@ -115,6 +120,7 @@ namespace Przychodnia.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Icons"] = new SelectList(_context.Icon, "Id", "Name", feed.IconId);  //??
             return View(feed);
         }
 
