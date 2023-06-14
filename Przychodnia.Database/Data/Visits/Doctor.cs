@@ -10,6 +10,7 @@ namespace Przychodnia.Database.Data.Visits
 		public string LicenceNumber { get; set; }
         [Display(Name = "Specjalizacja")]
         public int SpecializationId { get; set; }
+		[Display(Name = "Specjalizacja")]
 		public Specialization Specialization { get; set; }
 	}
 }

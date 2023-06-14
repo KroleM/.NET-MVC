@@ -24,7 +24,7 @@ namespace Przychodnia.Intranet.Controllers
         public async Task<IActionResult> Index()
         {
 			return _context.Feed != null ? 
-                          View(await _context.Feed.Include(d => d.Icon).ToListAsync()) :
+                          View(await _context.Feed.Include(f => f.Icon).ToListAsync()) :
                           Problem("Entity set 'PrzychodniaContext.Feed'  is null.");
         }
 
@@ -37,7 +37,8 @@ namespace Przychodnia.Intranet.Controllers
             }
 
             var feed = await _context.Feed
-                .FirstOrDefaultAsync(m => m.Id == id);
+				.Include(f => f.Icon)
+				.FirstOrDefaultAsync(m => m.Id == id);
             if (feed == null)
             {
                 return NotFound();
@@ -59,15 +60,16 @@ namespace Przychodnia.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,Priority,IconId")] Feed feed)
+        //public async Task<IActionResult> Create([Bind("Id,Title,Content,Priority,IconId")] Feed feed)
+        public async Task<IActionResult> Create(Feed feed)
         {
             //if (ModelState.IsValid)
-            //{
-                _context.Add(feed);
+            {
+                await _context.AddAsync(feed);    //_context.Feed.Add(feed); - działanie to samo
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            //}
-			//ViewData["IconId"] = new SelectList(_context.Icon, "Id", "Name", feed.IconId);
+            }
+			ViewData["Icons"] = new SelectList(_context.Icon, "Id", "Name", feed.IconId);
 			return View(feed);
         }
 
@@ -133,7 +135,8 @@ namespace Przychodnia.Intranet.Controllers
             }
 
             var feed = await _context.Feed
-                .FirstOrDefaultAsync(m => m.Id == id);
+				.Include(f => f.Icon)
+				.FirstOrDefaultAsync(m => m.Id == id);
             if (feed == null)
             {
                 return NotFound();
