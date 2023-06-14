@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Przychodnia.Database.Data;
 
@@ -11,9 +12,10 @@ using Przychodnia.Database.Data;
 namespace Przychodnia.Database.Migrations
 {
     [DbContext(typeof(PrzychodniaContext))]
-    partial class PrzychodniaContextModelSnapshot : ModelSnapshot
+    [Migration("20230614131751_M4_DoctorPicture")]
+    partial class M4_DoctorPicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,9 +156,11 @@ namespace Przychodnia.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Picture")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PictureFormat")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SpecializationId")

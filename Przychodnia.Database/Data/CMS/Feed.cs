@@ -6,10 +6,10 @@ using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Database.Data.CMS
 {
-    public class Feed
-    {
-        [Key]
-        public int Id { get; set; }
+    public class Feed : TEntity
+	{
+        //[Key]
+        //public int Id { get; set; }
         [Required(ErrorMessage = "Wpisz tytuł aktualności")]
         [MaxLength(30, ErrorMessage = "Tytuł aktualności powinien zawierać max. 30 znaków")]
         [Display(Name = "Tytuł")]

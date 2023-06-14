@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Przychodnia.Database.Data.Visits
 {
-	public class Person : TEntity
+	public class Person // : TEntity
 	{
 		[Key]
 		public int Id { get; set; }
@@ -20,10 +20,7 @@ namespace Przychodnia.Database.Data.Visits
 		[Column(TypeName = "date")]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime BirthDate { get; set; }
-
-		[Display(Name = "Wybierz zdjęcie")]
-		public string? PhotoURL { get; set; }
-		//public byte[] Picture { get; set; }
-        //public string PictureFormat { get; set; }
+		public byte[]? Picture { get; set; }
+        public string? PictureFormat { get; set; }
     }
 }

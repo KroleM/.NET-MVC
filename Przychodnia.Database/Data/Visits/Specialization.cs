@@ -3,10 +3,10 @@ using System.Xml.Linq;
 
 namespace Przychodnia.Database.Data.Visits
 {
-	public class Specialization
+	public class Specialization : TEntity
 	{
-		[Key]
-		public int Id { get; set; }
+		//[Key]
+		//public int Id { get; set; }
 		[Required(ErrorMessage = "Podaj nazwę specjalizacji")]
 		[MaxLength(30, ErrorMessage = "Nazwa specjalizacji może mieć max. 30 znaków")]
 		[Display(Name = "Nazwa specjalizacji")]
