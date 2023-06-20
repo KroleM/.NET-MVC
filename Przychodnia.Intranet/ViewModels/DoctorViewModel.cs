@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using Przychodnia.Database.Data.Visits;
 
-namespace Przychodnia.Database.Data.Visits
+namespace Przychodnia.Intranet.ViewModels
 {
-	public class Person // : TEntity
+	public class DoctorViewModel
 	{
-		[Key]
 		public int Id { get; set; }
 		[Required(ErrorMessage = "Imię i nazwisko są wymagane")]
 		[Display(Name = "Imię i nazwisko")]
@@ -18,9 +18,16 @@ namespace Przychodnia.Database.Data.Visits
 		[Required(ErrorMessage = "Data urodzenia jest wymagana")]
 		[Display(Name = "Data urodzenia")]
 		[Column(TypeName = "date")]
-		//[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
 		public DateTime BirthDate { get; set; }
-		public byte[] Picture { get; set; }
-        public string PictureFormat { get; set; }
-    }
+        [Required(ErrorMessage = "Zdjęcie jest wymagane")]
+        public IFormFile Picture { get; set; }
+
+		[Required(ErrorMessage = "Numer licencji jest wymagany")]
+		[Display(Name = "Numer licencji")]
+		public string LicenceNumber { get; set; }
+		[Display(Name = "Specjalizacja")]
+		public int SpecializationId { get; set; }
+		//[Display(Name = "Specjalizacja")]
+		//public Specialization Specialization { get; set; }
+	}
 }

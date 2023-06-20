@@ -1,4 +1,5 @@
-﻿@model Przychodnia.Database.Data.Visits.Doctor
+﻿@*@model Przychodnia.Database.Data.Visits.Doctor*@
+@model Przychodnia.Intranet.ViewModels.DoctorViewModel
 
 @{
 	ViewData["Title"] = "Nowy lekarz";
@@ -10,17 +11,8 @@
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="Create">
+		<form asp-action="Create" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="LicenceNumber" class="control-label"></label>
-				<input asp-for="LicenceNumber" class="form-control" />
-				<span asp-validation-for="LicenceNumber" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="SpecializationId" class="control-label"></label>
-				<select asp-for="SpecializationId" class="form-control" asp-items="ViewBag.Specializations"></select>
-			</div>
 			<div class="form-group">
 				<label asp-for="Name" class="control-label"></label>
 				<input asp-for="Name" class="form-control" />
@@ -33,14 +25,24 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="BirthDate" class="control-label"></label>
-				<input asp-for="BirthDate" class="form-control" />
+				<input asp-for="BirthDate" class="form-control" type="date"/>
 				<span asp-validation-for="BirthDate" class="text-danger"></span>
 			</div>
-@*			<div class="form-group">
-				<label asp-for="PhotoURL" class="control-label">URL zdjęcia</label>
-				<input asp-for="PhotoURL" class="form-control" />
-				<span asp-validation-for="PhotoURL" class="text-danger"></span>
-			</div>*@
+			<div class="form-group">
+				<label asp-for="LicenceNumber" class="control-label"></label>
+				<input asp-for="LicenceNumber" class="form-control" />
+				<span asp-validation-for="LicenceNumber" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="SpecializationId" class="control-label"></label>
+				<select asp-for="SpecializationId" class="form-control" asp-items="ViewBag.Specializations"></select>
+			</div>
+			<div class="form-group">
+				<label asp-for="Picture" class="control-label">Zdjęcie</label>
+				<br/>
+				<input asp-for="Picture" accept="image/*" />
+				<span asp-validation-for="Picture" class="text-danger"></span>
+			</div>
 			<div class="form-group">
 				<input type="submit" value="Utwórz" class="btn btn-primary" />
 			</div>
