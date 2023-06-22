@@ -1,8 +1,9 @@
-﻿@model IEnumerable<Przychodnia.Database.Data.Visits.Doctor>
+﻿@*@model IEnumerable<Przychodnia.Database.Data.Visits.Doctor>*@
+@model IEnumerable<Przychodnia.PortalWWW.ViewModels.DoctorDisplayViewModel>
 
 @{
-    ViewData["Title"] = "Rezerwacje";
-    Layout = "~/Views/Shared/_ReservationLayout.cshtml";
+	ViewData["Title"] = "Rezerwacje";
+	Layout = "~/Views/Shared/_ReservationLayout.cshtml";
 }
 
 <div>
@@ -11,19 +12,19 @@
 		{
 			<div class="col s12 m3">
 				<div class="card">
-					<div class="card-image">
-						<img src="~/lib/materialize/images/doctors.jpg">
-						@*<span class="card-title">@Html.ActionLink(towar.Nazwa, "Szczegoly", "Sklep", new {id=towar.IdTowaru},null)</span>*@
-					</div>
-					<div class="card-content">
-						<span class="card-title">@Html.ActionLink(doctor.Name, "Details", "Reservation", new {id=doctor.Id},null)</span>
-@*					</div>
-					<div class="card-content">*@
-						<p>@doctor.Specialization.Name</p>
-					</div>
-					<div class="card-content">
-						<p>Cena wizyty: xxx</p>
-					</div>
+					<a class="card" href="@Url.Action("Details","Reservation",new {id=doctor.Id},null)">
+						<div class="card-image">
+							@*<img src="~/lib/materialize/images/doctors.jpg">*@
+							<img src="data:@doctor.PictureFormat;base64,@doctor.Picture" />
+						</div>
+						<div class="card-content">
+							<span class="card-title">@Html.ActionLink(doctor.Name, "Details", "Reservation", new {id=doctor.Id},null)</span>
+							<p>@doctor.Specialization.Name</p>
+						</div>
+						<div class="card-content">
+							<p>Cena wizyty: 200 zł</p>
+						</div>
+					</a>
 				</div>
 			</div>
 		}
