@@ -1,35 +1,48 @@
-﻿@model Przychodnia.Database.Data.Visits.Doctor
+﻿@model Przychodnia.PortalWWW.ViewModels.DoctorDisplayViewModel
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_ReservationLayout.cshtml";
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/_ReservationLayout.cshtml";
 }
 
-<div class="container">
-    <div class="section">
-
-        <div class="table">
-            <table>
-@*                <tr>
-                    <td><b>Foto</b></td>
-                    <td>@Model.PhotoURL</td>
-                </tr>*@
-                <tr>
-                    <td><b>Imię i nazwisko</b></td>
-                    <td>@Model.Name</td>
-                </tr>
-                <tr>
-                    <td><b>Specjalizacja</b></td>
-                    <td>@Model.Specialization.Name</td>
-                </tr>
-                <tr>
-                    <td><b>Numer licencji</b></td>
-                    <td>@Model.LicenceNumber</td>
-                </tr>
-            </table>
-        </div>
-
-        <p class="left-align light">Uczniowie i studenci otrzymają zniżkę 20% po okazaniu ważnej legitymacji.</p>
-
-    </div>
+<div class="section">
+	<div class="row">
+		<div class="col s12 l10 offset-l1 z-depth-3" style="padding:10px">
+			<div class="col s12 m12 l4 center p3">
+				<img style="height:auto;width:300px;" src="data:@Model.PictureFormat;base64,@Model.Picture" />
+			</div>
+			<div class="col s2 m2 l2"></div>
+			<div class="col s10 m10 l6 left">
+				<h5>@Model.Name</h5>
+				<p>@Model.Specialization.Name</p>
+				<p>Numer licencji: @Model.LicenceNumber</p>
+				<p>Cena wizyty: @Model.Price zł</p>
+			</div>
+		</div>
+	</div>
 </div>
 
+@if (Model.Calendar.Any())
+{
+	<div class="section">
+		<div class="row">
+			<div class="col s12 m1 l1 center hoverable">
+				<i class="material-icons">arrow_back</i>
+			</div>
+			@foreach (var date in Model.Calendar)
+			{
+				<div class="col s12 m5 l2 z-depth-3" style="margin:5px">
+					<h6 class="center"><b>@String.Format("{0:dd-MM-yyyy}", date.Key)</b></h6>
+					@foreach (var time in date.Value)
+					{
+						<p style="margin-left:5px">
+							@String.Format("{0:HH:mm}", time.VisitDateTime.Date)
+						</p>
+					}
+				</div>
+			}
+			<div class="col s12 m1 l1 center hoverable">
+				<i class="material-icons">arrow_forward</i>
+			</div>
+		</div>
+	</div>
+}

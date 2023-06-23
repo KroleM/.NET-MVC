@@ -13,9 +13,8 @@
 		{
 			<div class="col s12 m3">
 				<div class="card">
-					<a class="card" href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=doctor.Id, StartDay = 0},null)">
+					<a class="card" href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=doctor.Id, StartDay=0},null)">
 						<div class="card-image">
-							@*<img src="~/lib/materialize/images/doctors.jpg">*@
 							<img src="data:@doctor.PictureFormat;base64,@doctor.Picture" />
 						</div>
 						<div class="card-content">
@@ -23,7 +22,7 @@
 							<p>@doctor.Specialization.Name</p>
 						</div>
 						<div class="card-content">
-							<p>Cena wizyty: 200 zł</p>
+							<p>Cena wizyty: @String.Format("{0:0.}",doctor.Price) zł</p>
 						</div>
 					</a>
 				</div>

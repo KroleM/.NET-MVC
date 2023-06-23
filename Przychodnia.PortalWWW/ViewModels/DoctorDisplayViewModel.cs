@@ -15,7 +15,7 @@ namespace Przychodnia.PortalWWW.ViewModels
         public int SpecializationId { get; set; }
         public Specialization Specialization { get; set; }
 
-        public Dictionary<DateTime, List<VisitDateTime>>? Calendar { get; set; }    //DoctorDateTime?
-        //dodatkowe listy z datami i czasami
+        public Dictionary<DateTime, List<DoctorDateTime>>? Calendar { get; set; }
+        //dodatkowe listy z datami i czasami ?
     }
 }

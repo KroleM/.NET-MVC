@@ -4,12 +4,13 @@ using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.Visits;
 using Przychodnia.PortalWWW.Helpers;
 using Przychodnia.PortalWWW.ViewModels;
+using System.Numerics;
 
 namespace Przychodnia.PortalWWW.Controllers
 {
-    public class ReservationController : Controller
-    {
-        private readonly PrzychodniaContext _context;
+	public class ReservationController : Controller
+	{
+		private readonly PrzychodniaContext _context;
 
 		public ReservationController(PrzychodniaContext context)
 		{
@@ -26,49 +27,49 @@ namespace Przychodnia.PortalWWW.Controllers
 				id = pierwszy.Id;
 			}
 
-            var doctors = await _context.Doctor.Where(d => d.SpecializationId == id).ToListAsync(); 
-            var doctorVMs = new List<DoctorDisplayViewModel>();
-            foreach (var doc in doctors)
-            {
-                var viewModel = new DoctorDisplayViewModel
-                {
-                    Id = doc.Id,
-                    Name = doc.Name,
-                    Address = doc.Address,
-                    BirthDate = doc.BirthDate,
-                    LicenceNumber = doc.LicenceNumber,
-                    SpecializationId = doc.SpecializationId,
-                    Specialization = doc.Specialization
-                };
-                if (doc.Picture != null)
-                {
-                    viewModel.Picture = Convert.ToBase64String(doc.Picture);
-                    viewModel.PictureFormat = doc.PictureFormat;
-                }
-                doctorVMs.Add(viewModel);
-            }
-
-            return View(doctorVMs);
-            //return View(await _context.Doctor.Where(t => t.SpecializationId == id).ToListAsync());
-		}
-        public async Task<IActionResult> Details(DoctorParameter param)
-        {
-            ViewBag.Specializations = await _context.Specialization.ToListAsync();
-
-            var doctor = await _context.Doctor.Where(t => t.Id == param.DoctorId).Include(d => d.VisitDateTimes).FirstOrDefaultAsync();
-
-			//funkcja filtrująca z VisitDateTime
-			Dictionary<DateTime, List<VisitDateTime>> visitsDictionary = new();
-			foreach (var visit in doctor.VisitDateTimes
-				.Where(d => d.Date >= DateTime.Today.AddDays(param.StartDay) && d.Date < DateTime.Today.AddDays(param.StartDay + 7)))
+			var doctors = await _context.Doctor.Where(d => d.SpecializationId == id).ToListAsync();
+			var doctorVMs = new List<DoctorDisplayViewModel>();
+			foreach (var doc in doctors)
 			{
-				if (!visitsDictionary.ContainsKey(visit.Date))
+				var viewModel = new DoctorDisplayViewModel
 				{
-					visitsDictionary.Add(visit.Date, new List<VisitDateTime>());
+					Id = doc.Id,
+					Name = doc.Name,
+					Address = doc.Address,
+					BirthDate = doc.BirthDate,
+					Price = doc.Price,
+					LicenceNumber = doc.LicenceNumber,
+					SpecializationId = doc.SpecializationId,
+					Specialization = doc.Specialization
+				};
+				if (doc.Picture != null)
+				{
+					viewModel.Picture = Convert.ToBase64String(doc.Picture);
+					viewModel.PictureFormat = doc.PictureFormat;
 				}
-				visitsDictionary[visit.Date].Add(visit);
+				doctorVMs.Add(viewModel);
 			}
-			//koniec
+
+			return View(doctorVMs);
+			//return View(await _context.Doctor.Where(t => t.SpecializationId == id).ToListAsync());
+		}
+		public async Task<IActionResult> Details(DoctorParameter param)
+		{
+			ViewBag.Specializations = await _context.Specialization.ToListAsync();
+
+			var doctor = await _context.Doctor.Where(t => t.Id == param.DoctorId).FirstOrDefaultAsync();
+			var visits = await _context.DoctorDateTime.Where(d => d.DoctorId == param.DoctorId).Include(ddt => ddt.VisitDateTime).ToListAsync();
+
+			Dictionary<DateTime, List<DoctorDateTime>>? visitsDictionary = new();
+
+			foreach (var visit in visits.Where(d => d.VisitDateTime.Date >= DateTime.Today.AddDays(param.StartDay) && d.VisitDateTime.Date < DateTime.Today.AddDays(param.StartDay + 7)))
+			{
+				if (!visitsDictionary.ContainsKey(visit.VisitDateTime.Date.Date))
+				{
+					visitsDictionary.Add(visit.VisitDateTime.Date.Date, new List<DoctorDateTime>());
+				}
+				visitsDictionary[visit.VisitDateTime.Date.Date].Add(visit);
+			}
 
 			var viewModel = new DoctorDisplayViewModel
 			{
@@ -89,7 +90,7 @@ namespace Przychodnia.PortalWWW.Controllers
 			}
 
 			//return View(await _context.Doctor.Where(t => t.Id == id).FirstOrDefaultAsync());
-			return View(viewModel);	//to powinno zostać
-        }
-    }
+			return View(viewModel); //to powinno zostać
+		}
+	}
 }

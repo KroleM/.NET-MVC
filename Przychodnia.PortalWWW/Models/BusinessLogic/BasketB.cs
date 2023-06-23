@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.Visits;
 
@@ -6,7 +7,6 @@ namespace Przychodnia.PortalWWW.Models.BusinessLogic
 {
 	public class BasketB
 	{
-		/*
 		private readonly PrzychodniaContext _context;
 		private string BasketSessionId;  //tu jest przechowywane Id przeglądarki, która łączy się z systemem
 		public BasketB(PrzychodniaContext context, HttpContext httpContext)
@@ -29,7 +29,7 @@ namespace Przychodnia.PortalWWW.Models.BusinessLogic
 				}
 				else
 				{
-					//W przeciwnym wypadku generujemy to Id przy pomocy Giud'a
+					//W przeciwnym wypadku generujemy to Id przy pomocy Guid'a
 					Guid tempBasketSessionId = Guid.NewGuid();
 					//I wysyłamy wygenerowane BasketSessionId jako wygenerowane cookie
 					httpContext.Session.SetString("BasketSessionId", tempBasketSessionId.ToString());
@@ -44,49 +44,43 @@ namespace Przychodnia.PortalWWW.Models.BusinessLogic
 			var basketElement =
 				(
 					from element in _context.BasketElement
-					where element.TowarId == doctorDateTime.IdTowaru && element.IdSesjiKoszyka == this.BasketSessionId
+					where element.Id == doctorDateTime.Id && element.BasketSessionId == this.BasketSessionId
 					select element
 				).FirstOrDefault();
-			//var basketElement = _context.ElementKoszyka.FirstOrDefaultAsync(elem => elem.TowarId == doctorDateTime.IdTowaru && elem.BasketSessionId == this.BasketSessionId);
+
 			//jeżeli towaru brak w koszyku
 			if (basketElement == null)
 			{
 				//tworzymy doctorDateTime w koszyku
-				basketElement = new ElementKoszyka()
+				basketElement = new BasketElement()
 				{
-					IdSesjiKoszyka = this.BasketSessionId,
-					TowarId = doctorDateTime.IdTowaru,
-					Towar = _context.Towar.Find(doctorDateTime.IdTowaru),
-					Ilosc = 1,
-					DataUtworzenia = DateTime.Now
+					BasketSessionId = this.BasketSessionId,
+					DoctorDateTimeId = doctorDateTime.Id,
+					DoctorDateTime = _context.DoctorDateTime.Find(doctorDateTime.Id),
+					CreationDate = DateTime.Now
 				};
 				//dodajemy element koszyka do BD
-				_context.ElementKoszyka.Add(basketElement);
+				_context.BasketElement.Add(basketElement);
+				_context.SaveChanges();
 			}
-			else //jeżeli doctorDateTime jest już w koszyku
-			{
-				basketElement.Ilosc++;
-			}
-			//zapis zmian w BD
-			_context.SaveChanges();
 		}
 		// Funkcja pobiera wszystkie elementy koszyka danej przeglądarki (sesji)
-		public async Task<List<ElementKoszyka>> GetElementyKoszyka()
+		public async Task<List<BasketElement>> GetBasketElements()
 		{
-			return await _context.ElementKoszyka.Where(e => e.IdSesjiKoszyka == this.BasketSessionId).Include(e => e.Towar).ToListAsync();
+			return await _context.BasketElement.Where(e => e.BasketSessionId == this.BasketSessionId).Include(e => e.DoctorDateTime).ToListAsync();
 			//Include, aby załadować relacje między tabelami (jeden do wielu?)
 		}
 		//Funkcja, która oblicza wartość koszyka
-		public async Task<decimal> GetRazem()
+		public async Task<double> GetTotal()
 		{
 			var items =
 			(
-				from element in _context.ElementKoszyka
-				where element.IdSesjiKoszyka == this.BasketSessionId
-				select (decimal?)element.Ilosc * element.Towar.Cena
+				from element in _context.BasketElement
+				where element.BasketSessionId == this.BasketSessionId
+				select element.DoctorDateTime.Doctor.Price
 			);
-			return await items.SumAsync() ?? 0;
+			return await items.SumAsync();	// ?? 0;
 		}
-		*/
+		
 	}
 }
