@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Przychodnia.Database.Data;
 
@@ -11,9 +12,10 @@ using Przychodnia.Database.Data;
 namespace Przychodnia.Database.Migrations
 {
     [DbContext(typeof(PrzychodniaContext))]
-    partial class PrzychodniaContextModelSnapshot : ModelSnapshot
+    [Migration("20230623094222_M6-DoctorDateTime")]
+    partial class M6DoctorDateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -19,7 +19,10 @@ namespace Przychodnia.Intranet.ViewModels
 		[Display(Name = "Data urodzenia")]
 		[Column(TypeName = "date")]
 		public DateTime BirthDate { get; set; }
-        [Required(ErrorMessage = "Zdjęcie jest wymagane")]
+		[Required(ErrorMessage = "Podaj cenę wizyty")]
+		[Display(Name = "Cena wizyty")]
+		public double Price { get; set; }
+		[Required(ErrorMessage = "Zdjęcie jest wymagane")]
         public IFormFile Picture { get; set; }
 
 		[Required(ErrorMessage = "Numer licencji jest wymagany")]

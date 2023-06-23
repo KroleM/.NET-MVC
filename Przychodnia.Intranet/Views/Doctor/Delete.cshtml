@@ -12,18 +12,6 @@
 	<hr />
 	<dl class="row">
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.LicenceNumber)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.LicenceNumber)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Specialization)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Specialization.Name)
-		</dd>
-		<dt class="col-sm-2">
 			@Html.DisplayNameFor(model => model.Name)
 		</dt>
 		<dd class="col-sm-10">
@@ -41,12 +29,24 @@
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.BirthDate)
 		</dd>
-@*		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.PhotoURL)
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.LicenceNumber)
 		</dt>
 		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.PhotoURL)
-		</dd>*@
+			@Html.DisplayFor(model => model.LicenceNumber)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Price)
+		</dt>
+		<dd class="col-sm-10">
+			@String.Format("{0:0.}",Model.Price) zł
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Specialization)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Specialization.Name)
+		</dd>
 	</dl>
 
 	<form asp-action="Delete">

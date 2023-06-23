@@ -26,6 +26,9 @@
 				@Html.DisplayNameFor(model => model.BirthDate)
 			</th>
 			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+			<th>
 				@Html.DisplayNameFor(model => model.LicenceNumber)
 			</th>
 			<th>
@@ -50,6 +53,10 @@
 				<td>
 					@String.Format("{0:d-MM-yyyy}", item.BirthDate)
 					@*@Html.DisplayFor(modelItem => item.BirthDate)*@
+				</td>
+				<td>
+					@String.Format("{0:0.}",item.Price) zł
+					@*@Html.DisplayFor(modelItem => item.Price)*@
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.LicenceNumber)

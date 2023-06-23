@@ -53,6 +53,7 @@ namespace Przychodnia.Intranet.Controllers
 					Name = doc.Name,
 					Address = doc.Address,
 					BirthDate = doc.BirthDate,
+					Price = doc.Price,
 					LicenceNumber = doc.LicenceNumber,
 					SpecializationId = doc.SpecializationId,
 					Specialization = doc.Specialization
@@ -89,6 +90,7 @@ namespace Przychodnia.Intranet.Controllers
 				Name = doctor.Name,
 				Address = doctor.Address,
 				BirthDate = doctor.BirthDate,
+				Price = doctor.Price,
 				LicenceNumber = doctor.LicenceNumber,
 				SpecializationId = doctor.SpecializationId,
 				Specialization = doctor.Specialization
@@ -122,6 +124,7 @@ namespace Przychodnia.Intranet.Controllers
 				Name = doctor.Name,
 				Address = doctor.Address,
 				BirthDate = doctor.BirthDate,
+				Price = doctor.Price,
 				LicenceNumber = doctor.LicenceNumber,
 				SpecializationId = doctor.SpecializationId,
 			};
@@ -147,7 +150,8 @@ namespace Przychodnia.Intranet.Controllers
                 Name = doctorViewModel.Name,
                 Address = doctorViewModel.Address,
                 BirthDate = doctorViewModel.BirthDate,
-                LicenceNumber = doctorViewModel.LicenceNumber,
+				Price = doctorViewModel.Price,
+				LicenceNumber = doctorViewModel.LicenceNumber,
                 SpecializationId = doctorViewModel.SpecializationId,
                 PictureFormat = doctorViewModel.Picture?.ContentType
             };
@@ -255,6 +259,7 @@ namespace Przychodnia.Intranet.Controllers
 				Name = doctorViewModel.Name,
 				Address = doctorViewModel.Address,
 				BirthDate = doctorViewModel.BirthDate,
+				Price = doctorViewModel.Price,
 				LicenceNumber = doctorViewModel.LicenceNumber,
 				SpecializationId = doctorViewModel.SpecializationId,
 				PictureFormat = doctorViewModel.Picture?.ContentType

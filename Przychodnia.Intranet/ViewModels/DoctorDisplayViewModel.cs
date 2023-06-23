@@ -13,6 +13,8 @@ namespace Przychodnia.Intranet.ViewModels
 		public string Address { get; set; }
 		[Display(Name = "Data urodzenia")]
 		public DateTime BirthDate { get; set; }
+		[Display(Name = "Cena wizyty")]
+		public double Price { get; set; }
 		[Display(Name = "Zdjęcie")]
 		public string? Picture { get; set; }
 		public string? PictureFormat { get; set; }
