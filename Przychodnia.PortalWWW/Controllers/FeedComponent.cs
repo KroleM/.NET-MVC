@@ -13,19 +13,15 @@ namespace Przychodnia.PortalWWW.Controllers
 		}
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			//dopisane - do testów
-			var model = await _context.Feed.ToListAsync();
-			model.OrderBy(x => x.Priority);
-			//alternatywnie
-			var model1 = await
+			var model = await
 			(
 				from feed in _context.Feed
 				orderby feed.Priority
 				select feed
-			).ToListAsync();
-			//koniec
+			).Include(f => f.Icon)
+			.ToListAsync();
 
-			return View("FeedComponent", await _context.Feed.Include(f => f.Icon).ToListAsync());
+			return View("FeedComponent", model);
 		}
 	}
 }

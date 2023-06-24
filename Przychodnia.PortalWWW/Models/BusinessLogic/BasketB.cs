@@ -67,7 +67,12 @@ namespace Przychodnia.PortalWWW.Models.BusinessLogic
 		// Funkcja pobiera wszystkie elementy koszyka danej przeglądarki (sesji)
 		public async Task<List<BasketElement>> GetBasketElements()
 		{
-			return await _context.BasketElement.Where(e => e.BasketSessionId == this.BasketSessionId).Include(e => e.DoctorDateTime).ToListAsync();
+			return await _context.BasketElement.Where(e => e.BasketSessionId == this.BasketSessionId)
+				.Include(e => e.DoctorDateTime.VisitDateTime)
+				.Include(f => f.DoctorDateTime.Doctor)
+				.Include(g => g.DoctorDateTime.Doctor.Specialization)
+				.OrderBy(h => h.DoctorDateTime.VisitDateTime.Date)
+				.ToListAsync();
 			//Include, aby załadować relacje między tabelami (jeden do wielu?)
 		}
 		//Funkcja, która oblicza wartość koszyka
@@ -81,6 +86,16 @@ namespace Przychodnia.PortalWWW.Models.BusinessLogic
 			);
 			return await items.SumAsync();	// ?? 0;
 		}
-		
+		public async Task Pay()
+		{
+			var basketElements = await _context.BasketElement.Where(x => x.BasketSessionId == this.BasketSessionId).ToListAsync(); ;
+			foreach (var item in basketElements)
+			{
+				var ddt = await _context.DoctorDateTime.FindAsync(item.DoctorDateTimeId);
+				ddt.IsBooked = true;
+				_context.BasketElement.Remove(item);
+				_context.SaveChanges();
+			}
+		}
 	}
 }

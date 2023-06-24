@@ -1,0 +1,62 @@
+﻿@model Przychodnia.PortalWWW.ViewModels.BasketViewModel
+@{
+	ViewData["Title"] = "Koszyk";
+	Layout = "~/Views/Shared/_BasketLayout.cshtml";
+}
+
+<div class="container">
+	@if (Model.BasketElements.Any())
+	{
+		<table class="centered highlight responsive-table">
+			<thead>
+				<tr>
+					<th>Lekarz</th>
+					<th>Specjalizacja</th>
+					<th>Termin</th>
+					<th>Cena</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var element in Model.BasketElements)
+				{
+					<tr>
+						<td>
+							@element.DoctorDateTime.Doctor.Name
+						</td>
+						<td>
+							@element.DoctorDateTime.Doctor.Specialization.Name
+						</td>
+						<td>
+							@String.Format("{0:dd-MM-yyyy HH:mm}", element.DoctorDateTime.VisitDateTime.Date)
+						</td>
+						<td>
+							@String.Format("{0:0.}", element.DoctorDateTime.Doctor.Price) zł
+						</td>
+						<td>
+							<a asp-action="Delete" asp-controller="Basket" asp-route-id="@element.Id">
+								<i class="material-icons">delete</i>
+							</a>
+						</td>
+					</tr>
+				}
+				<tr>
+					<td></td>
+					<td></td>
+					<td>Suma: </td>
+					<td>@String.Format("{0:0.}",Model.Total) zł</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<a class="btn cyan right" style="margin:5px" asp-action="Pay" asp-controller="Reservation">Zapłać</a>
+		<br />
+	}
+	else
+	{
+		<h4>Twój koszyk jest pusty.</h4>
+		<a class="btn cyan" asp-action="Index" asp-controller="Reservation">Rezerwacje wizyt</a>
+	}
+	<br /><br />
+</div>
+

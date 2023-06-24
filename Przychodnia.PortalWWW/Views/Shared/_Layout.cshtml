@@ -5,11 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>@ViewData["Title"] - Przychodnia MEDICA</title>
 
-	<!-- CSS  -->
+	<!-- CSS -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="~/lib/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 	<link href="~/lib/materialize/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-	<link href="~/lib/materialize/css/MojeStyle.css" type="text/css" />
 	<link rel="shortcut icon" href="~/lib/materialize/images/stethoscope.png" type="image/x-icon">
 	<link rel="icon" href="shortcut icon" href="~/lib/materialize/images/stethoscope.png" type="image/x-icon">
 
@@ -19,13 +18,12 @@
 		@await Html.PartialAsync("TopLinks", (IEnumerable<Przychodnia.Database.Data.CMS.Page>) ViewBag.PageModel)
 	</nav>
 
-	@*<div class="container">*@
-	<div>
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
+	<!-- MAIN -->
+	<main role="main" class="pb-3">
+		@RenderBody()
+	</main>
 
+	<!-- FOOTER -->
 	<footer class="page-footer cyan">
 		<div class="container">
 			<div class="row">

@@ -14,8 +14,7 @@ namespace Przychodnia.PortalWWW.ViewModels
         public string LicenceNumber { get; set; }
         public int SpecializationId { get; set; }
         public Specialization Specialization { get; set; }
-
         public Dictionary<DateTime, List<DoctorDateTime>>? Calendar { get; set; }
-        //dodatkowe listy z datami i czasami ?
+        public int? ScheduleDay { get; set; }
     }
 }

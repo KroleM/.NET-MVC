@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.Visits;
 using Przychodnia.PortalWWW.Helpers;
+using Przychodnia.PortalWWW.Models.BusinessLogic;
 using Przychodnia.PortalWWW.ViewModels;
 using System.Numerics;
 
@@ -21,13 +22,15 @@ namespace Przychodnia.PortalWWW.Controllers
 		{
 			ViewBag.Specializations = await _context.Specialization.ToListAsync();
 
+			List<Doctor> doctors = new();
 			if (id == null)
 			{
-				var pierwszy = await _context.Specialization.FirstAsync();
-				id = pierwszy.Id;
+				doctors = await _context.Doctor.ToListAsync();
 			}
-
-			var doctors = await _context.Doctor.Where(d => d.SpecializationId == id).ToListAsync();
+			else
+			{
+				doctors = await _context.Doctor.Where(d => d.SpecializationId == id).ToListAsync();
+			}
 			var doctorVMs = new List<DoctorDisplayViewModel>();
 			foreach (var doc in doctors)
 			{
@@ -57,12 +60,23 @@ namespace Przychodnia.PortalWWW.Controllers
 		{
 			ViewBag.Specializations = await _context.Specialization.ToListAsync();
 
+			var startDay = param.StartDay < 0 ? 0 : param.StartDay;
+
 			var doctor = await _context.Doctor.Where(t => t.Id == param.DoctorId).FirstOrDefaultAsync();
-			var visits = await _context.DoctorDateTime.Where(d => d.DoctorId == param.DoctorId).Include(ddt => ddt.VisitDateTime).ToListAsync();
+			var visits = await
+				(
+					from element in _context.DoctorDateTime
+					where element.DoctorId == param.DoctorId 
+					&& element.IsBooked == false
+					&& element.VisitDateTime.Date >= DateTime.Today.AddDays(startDay)
+					&& element.VisitDateTime.Date < DateTime.Today.AddDays(startDay + 7)
+					orderby element.VisitDateTime.Date
+					select element
+				).Include(ddt => ddt.VisitDateTime).ToListAsync();
 
 			Dictionary<DateTime, List<DoctorDateTime>>? visitsDictionary = new();
 
-			foreach (var visit in visits.Where(d => d.VisitDateTime.Date >= DateTime.Today.AddDays(param.StartDay) && d.VisitDateTime.Date < DateTime.Today.AddDays(param.StartDay + 7)))
+			foreach (var visit in visits)
 			{
 				if (!visitsDictionary.ContainsKey(visit.VisitDateTime.Date.Date))
 				{
@@ -81,7 +95,8 @@ namespace Przychodnia.PortalWWW.Controllers
 				LicenceNumber = doctor.LicenceNumber,
 				SpecializationId = doctor.SpecializationId,
 				Specialization = doctor.Specialization,
-				Calendar = visitsDictionary
+				Calendar = visitsDictionary,
+				ScheduleDay = startDay
 			};
 			if (doctor.Picture != null)
 			{
@@ -91,6 +106,12 @@ namespace Przychodnia.PortalWWW.Controllers
 
 			//return View(await _context.Doctor.Where(t => t.Id == id).FirstOrDefaultAsync());
 			return View(viewModel); //to powinno zostać
+		}
+		public async Task<IActionResult> Pay()
+		{
+			BasketB basketB = new BasketB(this._context, this.HttpContext);
+			await basketB.Pay();
+			return RedirectToAction("Index");
 		}
 	}
 }

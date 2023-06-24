@@ -1,4 +1,5 @@
-﻿@model Przychodnia.PortalWWW.ViewModels.DoctorDisplayViewModel
+﻿@using Przychodnia.PortalWWW.Helpers;
+@model Przychodnia.PortalWWW.ViewModels.DoctorDisplayViewModel
 @{
 	ViewData["Title"] = "Details";
 	Layout = "~/Views/Shared/_ReservationLayout.cshtml";
@@ -26,22 +27,37 @@
 	<div class="section">
 		<div class="row">
 			<div class="col s12 m1 l1 center hoverable">
-				<i class="material-icons">arrow_back</i>
+				<a href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) - 7)},null)">
+					<i class="material-icons">arrow_back</i>
+				</a>
 			</div>
 			@foreach (var date in Model.Calendar)
 			{
 				<div class="col s12 m5 l2 z-depth-3" style="margin:5px">
 					<h6 class="center"><b>@String.Format("{0:dd-MM-yyyy}", date.Key)</b></h6>
-					@foreach (var time in date.Value)
-					{
-						<p style="margin-left:5px">
-							@String.Format("{0:HH:mm}", time.VisitDateTime.Date)
-						</p>
-					}
+					<table class="centered highlight">
+						@foreach (var time in date.Value)
+						{
+							<tr>
+								<td>
+									<p style="margin-left:5px">
+										@String.Format("{0:HH:mm}", time.VisitDateTime.Date)
+									</p>
+								</td>
+								<td>
+									<p style="margin-right:5px">
+										<a class="btn btn-small" asp-action="AddToBasket" asp-controller="Basket" asp-route-id="@time.Id">Umów</a>
+									</p>
+								</td>
+							</tr>
+						}
+					</table>
 				</div>
 			}
 			<div class="col s12 m1 l1 center hoverable">
-				<i class="material-icons">arrow_forward</i>
+				<a href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) + 7)},null)">
+					<i class="material-icons">arrow_forward</i>
+				</a>
 			</div>
 		</div>
 	</div>

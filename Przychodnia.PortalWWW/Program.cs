@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession(options =>
 {
 	// Set a short timeout for easy testing.
-	options.IdleTimeout = TimeSpan.FromSeconds(120);
+	options.IdleTimeout = TimeSpan.FromSeconds(180);
 	options.Cookie.HttpOnly = true;
 	// Make the session cookie essential
 	options.Cookie.IsEssential = true;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Przychodnia.Database.Data;
+using Przychodnia.Database.Data.Visits;
 using Przychodnia.PortalWWW.Models.BusinessLogic;
 using Przychodnia.PortalWWW.ViewModels;
 
@@ -29,10 +30,17 @@ namespace Przychodnia.PortalWWW.Controllers
 			//W jednym obiekcie przekazuję 2 rzeczy do widoku (można przekazać tylko jeden obiekt!)
 			return View(basketViewModel);
 		}
-		public async Task<IActionResult> DodajDoKoszyka(int id)
+		public async Task<IActionResult> AddToBasket(int id)    //id DoctorDateTime
 		{
 			BasketB basketB = new BasketB(this._context, this.HttpContext);
 			basketB.AddToBasket(await _context.DoctorDateTime.FindAsync(id));
+			return RedirectToAction("Index");
+		}
+		public async Task<IActionResult> Delete(int id)
+		{
+			var basketElement = await _context.BasketElement.FindAsync(id);
+			_context.BasketElement.Remove(basketElement);
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 	}
