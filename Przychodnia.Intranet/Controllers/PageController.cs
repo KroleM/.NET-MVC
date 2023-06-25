@@ -7,11 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Database.Data;
 using Przychodnia.Database.Data.CMS;
+using Przychodnia.Database.Data.Visits;
 
 namespace Przychodnia.Intranet.Controllers
 {
-    public class PageController : Controller
+    public class PageController : BaseController<Page>
     {
+		public PageController(PrzychodniaContext context)
+	        : base(context)
+		{
+		}
+
+		public override async Task<List<Page>> GetEntityList()
+		{
+			return await Context.Page.ToListAsync();
+		}
+		public override async Task<Page> GetEntityItem(int? id)
+		{
+			return await Context.Page
+				.FirstOrDefaultAsync(m => m.Id == id);
+		}
+        // Wersja wygenerowana automatycznie
+		/*
         private readonly PrzychodniaContext _context;
 
         public PageController(PrzychodniaContext context)
@@ -159,5 +176,6 @@ namespace Przychodnia.Intranet.Controllers
         {
           return (_context.Page?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    }
+        */
+	}
 }

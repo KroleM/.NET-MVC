@@ -5,10 +5,8 @@ using System.Xml.Linq;
 
 namespace Przychodnia.Database.Data.CMS
 {
-    public class Page
+    public class Page : TEntity
     {
-        [Key]
-        public int Id { get; set; }
         [Required(ErrorMessage = "Wpisz tytuł odnośnika")]
         [MaxLength(10, ErrorMessage = "Tytuł powinien zawierać max 10 znaków")]
         [Display(Name = "Tytuł odnośnika")]

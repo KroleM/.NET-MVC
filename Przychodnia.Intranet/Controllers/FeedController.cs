@@ -41,6 +41,7 @@ namespace Przychodnia.Intranet.Controllers
             ViewBag.Icons = new SelectList(icons, "Id", "Name", item.IconId);
 			//ViewData["Icons"] = new SelectList(icons, "Id", "Name", item.IconId);    // <-- wersja alternatywna
 		}
+
         // Poniżej jest oryginalna automatycznie wygenerowana treść kontrolera
 		/*
         public async Task<IActionResult> Index()
