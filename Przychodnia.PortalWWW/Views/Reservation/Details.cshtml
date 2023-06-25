@@ -22,43 +22,48 @@
 	</div>
 </div>
 
+<div class="section">
+	<a class="btn waves-effect" href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=0},null)">Powrót do początku</a>
+	<br />
+</div>
+
 @if (Model.Calendar.Any())
 {
-	<div class="section">
-		<div class="row">
-			<div class="col s12 m1 l1 center hoverable">
-				<a href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) - 7)},null)">
-					<i class="material-icons">arrow_back</i>
-				</a>
-			</div>
+	<div class="section" style="width:100%">
+		<div class="row center-align flex-row">
+			<a class="col s12 m2 l1 hoverable margin-arrow-btn"
+			   href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) - 7)},null)">
+				<i class="material-icons" style="margin-top:5px">arrow_back</i>
+			</a>
 			@foreach (var date in Model.Calendar)
 			{
-				<div class="col s12 m5 l2 z-depth-3" style="margin:5px">
-					<h6 class="center"><b>@String.Format("{0:dd-MM-yyyy}", date.Key)</b></h6>
-					<table class="centered highlight">
-						@foreach (var time in date.Value)
-						{
-							<tr>
-								<td>
-									<p style="margin-left:5px">
-										@String.Format("{0:HH:mm}", time.VisitDateTime.Date)
-									</p>
-								</td>
-								<td>
-									<p style="margin-right:5px">
-										<a class="btn btn-small" asp-action="AddToBasket" asp-controller="Basket" asp-route-id="@time.Id">Umów</a>
-									</p>
-								</td>
-							</tr>
-						}
-					</table>
+				<div class="col s12 m5 l2" style="padding:3px">
+					<div class="z-depth-3">
+						<h6 style="padding:5px"><b>@String.Format("{0:dd-MM-yyyy}", date.Key)</b></h6>
+						<table class="centered highlight">
+							@foreach (var time in date.Value)
+							{
+								<tr>
+									<td>
+										<p style="margin-left:5px">
+											@String.Format("{0:HH:mm}", time.VisitDateTime.Date)
+										</p>
+									</td>
+									<td>
+										<p style="margin-right:5px">
+											<a class="btn btn-small" asp-action="AddToBasket" asp-controller="Basket" asp-route-id="@time.Id">Umów</a>
+										</p>
+									</td>
+								</tr>
+							}
+						</table>
+					</div>
 				</div>
 			}
-			<div class="col s12 m1 l1 center hoverable">
-				<a href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) + 7)},null)">
-					<i class="material-icons">arrow_forward</i>
-				</a>
-			</div>
+			<a class="col s12 m2 l1 hoverable margin-arrow-btn"
+			   href="@Url.Action("Details","Reservation",new DoctorParameter{DoctorId=Model.Id, StartDay=((Model.ScheduleDay?? 0) + 7)},null)">
+				<i class="material-icons" style="margin-top:5px">arrow_forward</i>
+			</a>
 		</div>
 	</div>
 }

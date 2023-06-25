@@ -2626,6 +2626,17 @@ a {
     align-items: center;
 }
 
+.anti-valign-wrapper {
+    display: unset;
+    display: unset;
+    display: unset;
+    display: unset;
+    -webkit-box-align: unset;
+    -webkit-align-items: unset;
+    -ms-flex-align: unset;
+    align-items: unset;
+}
+
 .clearfix {
     clear: both;
 }
@@ -9298,4 +9309,20 @@ input[type=range]::-ms-thumb {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.flex-row {
+    @media (min-width:860px) {
+        display: flex;
+        justify-content: center;
+        > .col.m3 {
+            margin-left: 0;
+        }
+    }
+}
+
+.margin-arrow-btn {
+    margin-top: 14px;
+    margin-bottom: 5px;
+    max-height: 40px;
 }
